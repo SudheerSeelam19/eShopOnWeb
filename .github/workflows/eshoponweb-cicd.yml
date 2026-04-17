@@ -10,6 +10,7 @@ env:
   TEMPLATE-FILE: infra/webapp.bicep
   SUBSCRIPTION-ID: 134efa89-8987-420f-bdae-7d365f50c3dc
   WEBAPP-NAME: eshoponweb-webapp-sudheer1906
+  
 
 jobs:
   #Build, test and publish .net web project in repository
@@ -31,12 +32,12 @@ jobs:
         run: dotnet test ./eShopOnWeb.sln --configuration Release
       - name: dotnet publish
         run: dotnet publish ./src/Web/Web.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
-           # upload the published website code artifacts
+      # upload the published website code artifacts
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v5
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/app.zip
+          path: ${{env.DOTNET_ROOT}}/myapp
 
       # upload the bicep template as artifacts for next job
       - name: Upload artifact for deployment job
